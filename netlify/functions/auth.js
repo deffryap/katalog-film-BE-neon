@@ -2,23 +2,18 @@ const sql = require('./utils/db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const handler = async (event) => {
+exports.handler = async (event) => {
     const path = event.path.replace('/.netlify/functions', '').replace('/api', '');
     const body = JSON.parse(event.body || '{}');
-
-    // CORS Headers
-    const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+    const headers = { 
+        'Access-Control-Allow-Origin': '*', // Ganti dengan URL frontend Anda saat produksi
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization', 
+        'Access-Control-Allow-Methods': 'POST, OPTIONS' 
     };
-    
-    if (event.httpMethod === 'OPTIONS') {
-        return { statusCode: 204, headers };
-    }
+
+    if (event.httpMethod === 'OPTIONS') return { statusCode: 204, headers };
 
     try {
-        // Rute untuk Registrasi
         if (path === '/auth/register') {
             const { username, password } = body;
             const hashedPassword = await bcrypt.hash(password, 10);
@@ -26,7 +21,6 @@ const handler = async (event) => {
             return { statusCode: 201, headers, body: JSON.stringify({ message: "Admin berhasil didaftarkan." }) };
         }
 
-        // Rute untuk Login
         if (path === '/auth/login') {
             const { username, password } = body;
             const users = await sql`SELECT * FROM users WHERE username = ${username}`;
@@ -47,5 +41,3 @@ const handler = async (event) => {
         return { statusCode: 500, headers, body: JSON.stringify({ error: "Terjadi kesalahan pada server." }) };
     }
 };
-
-module.exports = { handler };
