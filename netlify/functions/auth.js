@@ -6,7 +6,7 @@ exports.handler = async (event) => {
     const path = event.path.replace('/.netlify/functions', '').replace('/api', '');
     const body = JSON.parse(event.body || '{}');
     const headers = { 
-        'Access-Control-Allow-Origin': '*', // Ganti dengan URL frontend Anda saat produksi
+        'Access-Control-Allow-Origin': 'https://katalog-film-fe.netlify.app/', // Ganti dengan URL frontend Anda saat produksi
         'Access-Control-Allow-Headers': 'Content-Type, Authorization', 
         'Access-Control-Allow-Methods': 'POST, OPTIONS' 
     };
