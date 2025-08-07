@@ -1,0 +1,15 @@
+{
+  "name": "backend-netlify-neon",
+  "version": "1.0.0",
+  "description": "Backend serverless untuk Katalog Film",
+  "main": "index.js",
+  "scripts": {
+    "dev": "netlify dev"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
+    "postgres": "^3.4.4"
+  }
+}
